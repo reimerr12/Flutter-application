@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/profilepage.dart';
 
 class homepage extends StatelessWidget {
   const homepage({super.key});
@@ -30,7 +31,7 @@ class homepage extends StatelessWidget {
               accountEmail: Text("xyz.com"),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
-                child: Icon(Icons.person, size: 40, color: Colors.teal),
+                backgroundImage: AssetImage("assets/images/darking.jpg"),
               ),
             ),
 
@@ -53,6 +54,33 @@ class homepage extends StatelessWidget {
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text("Logout"),
               onTap: () {},
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Profilepage();
+                          },
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(130, 30),
+                    ),
+                    // your action here},
+                    child: const Text("Navigation"),
+                  ),
+                  OutlinedButton(onPressed: () {}, child: Text("No,Click Me")),
+                ],
+              ),
             ),
           ],
         ),
