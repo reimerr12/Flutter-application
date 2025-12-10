@@ -86,15 +86,56 @@ class homepage extends StatelessWidget {
         ),
       ),
 
-      body: const Center(
-        child: Text(
-          "Welcome to the Homepage!",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.teal,
+      body: Column(
+        children: [
+          Center(
+            child: Text(
+              "Welcome to the Homepage!",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
+            ),
           ),
-        ),
+
+          SizedBox(
+            height: 200,
+            width: 200,
+            child: Card(
+              color: Colors.amber,
+              child: Center(
+                child: Text("Card", style: TextStyle(color: Colors.black)),
+              ),
+            ),
+          ),
+
+          Container(
+            height: 200,
+            width: 300,
+            padding: EdgeInsets.all(20),
+            alignment: Alignment.bottomRight,
+
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.teal, Color(0xFF7cc59d)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(color: Colors.teal, width: 3),
+              shape: BoxShape.circle,
+              //borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+
+          Container(
+            height: 300,
+            width: 500,
+            padding: EdgeInsets.all(30),
+
+            alignment: Alignment.bottomCenter,
+          ),
+        ],
       ),
     );
   }
