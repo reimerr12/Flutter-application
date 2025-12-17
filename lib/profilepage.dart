@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/input_field.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
@@ -9,7 +10,10 @@ class Profilepage extends StatefulWidget {
 
 class ProfilePageState extends State<Profilepage> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   String name = '';
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -18,58 +22,69 @@ class ProfilePageState extends State<Profilepage> {
       body: Center(
         child: SizedBox(
           height: 300,
-          width: 400,
+          width: 450,
           child: Card(
             color: Colors.amber,
             child: Padding(
               padding: EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: nameController,
-                    keyboardType: TextInputType.numberWithOptions(
-                      signed: true,
-                      decimal: true,
-                    ),
-                    decoration: InputDecoration(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputField(
+                      controller: nameController,
+                      keyboardType: TextInputType.name,
+                      obscureText: false,
                       labelText: "Name",
                       hintText: 'Enter name',
                       prefixIcon: Icon(Icons.person),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter a name";
+                        } else if (!RegExp(
+                          r'^[A-Za-z .](3,)$',
+                        ).hasMatch(value)) {
+                          return "Invalid format";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  SizedBox(height: 20),
 
-                  TextFormField(
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    decoration: InputDecoration(
+                    SizedBox(height: 20),
+
+                    InputField(
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
                       labelText: "password",
                       hintText: 'Enter password',
                       prefixIcon: Icon(Icons.lock),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter a name";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
 
-                  SizedBox(height: 20),
+                    SizedBox(height: 20),
 
-                  ElevatedButton(
-                    onPressed: () {
-                      name = nameController.text;
-                      setState(() {});
-                    },
-                    child: Text("submit"),
-                  ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          name = nameController.text;
+                          setState(() {});
+                        }
+                      },
+                      child: Text("submit"),
+                    ),
 
-                  SizedBox(height: 20),
+                    SizedBox(height: 20),
 
-                  Text("Name is: $name"),
-                ],
+                    Text("Name is: $name"),
+                  ],
+                ),
               ),
             ),
           ),
